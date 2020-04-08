@@ -1,0 +1,19 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+# Note: PS1 and umask are already set in /etc/profile. 
+PS1='\[\033[38;5;2m\]\u@\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;8m\]\w\$ \[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]'
+
+# You may comment out the following lines if you don't want `ls' to be colorized:
+export LS_OPTIONS='--color=auto'
+eval "`dircolors`"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
+
+# Some more alias to avoid making mistakes:
+#alias rm='rm -i'
+#alias cp='cp -i'
+#alias mv='mv -i'
+
+# Set default terminal title
+PROMPT_COMMAND='echo -en "\033]0;$(whoami)@$(hostname)\a"'
