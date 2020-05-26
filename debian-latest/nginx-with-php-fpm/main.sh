@@ -9,7 +9,7 @@ wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
 wget -q https://syncthing.net/release-key.txt -O- | sudo apt-key add -
 
 # Download apt sources
-wget -q https://     -O- | sudo mv - /etc/apt/sources.list.d/web.list
+wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/web.list -O- | sudo mv - /etc/apt/sources.list.d/web.list
 
 # Update system
 sudo apt update && sudo apt upgrade -y
