@@ -6,16 +6,23 @@
 # Download and add apt keys
 wget -q https://nginx.org/keys/nginx_signing.key -O- | sudo apt-key add -
 wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
-wget -q https://syncthing.net/release-key.txt -O- | sudo apt-key add -
 
 # Download apt sources
-wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/web.list -o src.sh | sudo mv src.sh /etc/apt/sources.list.d/web.list
+sudo wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/web.list -o /etc/apt/sources.list.d/web.list
 
 # Update system
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Install packages
-sudo apt-get install nginx php-fpm syncthing haproxy curl
+sudo apt-get install nginx php-fpm syncthing haproxy curl -y
+
+# Create nginx config dirs
+sudo mkdir -p /etc/nginx/conf.d
+sudo mkdir -p /etc/nginx/sites-available
+sudo mkdir -p /etc/nginx/sites-enabled
 
 # Download nginx config
-wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/web.list -o src.sh | sudo mv src.sh /etc/nginx/nginx.conf
+sudo wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/nginx.conf -o /etc/nginx/nginx.conf
+
+# Cleanup 
+sudo apt-get autoremove -y
