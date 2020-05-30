@@ -16,8 +16,8 @@ apt-get --yes install apt-transport-https
 apt-get --yes --force-yes dist-upgrade
 
 # Download and add apt keys
-wget -q https://nginx.org/keys/nginx_signing.key -O- | sudo apt-key add -
-wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
+wget -q https://nginx.org/keys/nginx_signing.key -O- | apt-key add -
+wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 
 # Download apt sources
 mkdir -p /etc/apt/sources.list.d
