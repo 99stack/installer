@@ -4,37 +4,40 @@
 # Before running, set your configuration options below
 
 # Change apt sources to debian 10 (stable) from 8 and 9
-sudo sed -i -e 's/stretch/buster/g' /etc/apt/sources.list
-sudo sed -i -e 's/jessie/buster/g' /etc/apt/sources.list
+sed -i -e 's/stretch/buster/g' /etc/apt/sources.list
+sed -i -e 's/jessie/buster/g' /etc/apt/sources.list
+
+# Force noninteractive prompt
+DEBIAN_FRONTEND=noninteractive
 
 # Update system
-sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install apt-transport-https -y
-sudo apt-get dist-upgrade -y
+apt-get update && apt-get --yes upgrade
+apt-get --yes install apt-transport-https
+apt-get --yes --force-yes dist-upgrade
 
 # Download and add apt keys
 wget -q https://nginx.org/keys/nginx_signing.key -O- | sudo apt-key add -
 wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
 
 # Download apt sources
-sudo mkdir -p /etc/apt/sources.list.d
+mkdir -p /etc/apt/sources.list.d
 cd /etc/apt/sources.list.d
-sudo wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/web.list
+wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/web.list
 
 # Install packages
-sudo apt-get update && sudo apt-get install nginx php-fpm haproxy curl fail2ban -y
+apt-get update && apt-get --yes install nginx php-fpm haproxy curl fail2ban
 
 # Create nginx config dirs
-sudo mkdir -p /etc/nginx/conf.d
-sudo mkdir -p /etc/nginx/sites-available
-sudo mkdir -p /etc/nginx/sites-enabled
+mkdir -p /etc/nginx/conf.d
+mkdir -p /etc/nginx/sites-available
+mkdir -p /etc/nginx/sites-enabled
 
 # Download nginx config
-cd /etc/nginx && sudo rm nginx.conf
-sudo wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/nginx.conf
+cd /etc/nginx && rm nginx.conf
+wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/nginx.conf
 
 # Restart nginx webserver
-sudo systemctl restart nginx
+systemctl restart nginx
 
 # Cleanup 
-sudo apt-get autoremove -y
+apt-get --yes autoremove
