@@ -14,3 +14,5 @@ mkswap /root/swap.img
 swapon /root/swap.img
 
 # Download and install galera.cnf
+cd /etc/mysql/conf.d
+wget https://raw.githubusercontent.com/99stack/installer/master/debian-latest/mariadb-galera/galera.cnf
