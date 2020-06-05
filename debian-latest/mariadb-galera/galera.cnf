@@ -1,0 +1,18 @@
+mysqld]
+# Mariadb settings
+binlog_format=row
+default-storage-engine=innodb
+innodb_autoinc_lock_mode=2
+query_cache_size=0
+query_cache_type=0
+bind-address=0.0.0.0
+
+# Galera settings
+wsrep_on=ON
+wsrep_provider=/usr/lib/galera/libgalera_smm.so
+wsrep_cluster_name="paa_wsrep_cluster"
+wsrep_cluster_address="gcomm://" #comma separated list of clister IP's
+wsrep_sst_method=rsync
+
+# Cluster options
+wsrep_provider_options="pc.weight=64"
