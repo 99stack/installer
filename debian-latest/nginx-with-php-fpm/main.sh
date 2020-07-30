@@ -1,43 +1,46 @@
 #!/bin/bash
 
 # Automated installation of latest nginx, php-fpm, haproxy and syncthing on latest version of debian or debian based distros
-# Before running, set your configuration options below
 
-# Change apt sources to debian 10 (stable) from 8 and 9
-sed -i -e 's/stretch/buster/g' /etc/apt/sources.list
-sed -i -e 's/jessie/buster/g' /etc/apt/sources.list
+# Allow installation from https sources
+sudo apt-get install apt-transport-https -y
 
-# Force noninteractive prompt
-DEBIAN_FRONTEND=noninteractive
-
-# Update system
-apt-get update && apt-get --yes upgrade
-apt-get --yes install apt-transport-https
-apt-get --yes --force-yes dist-upgrade
-
-# Download and add apt keys
-wget -q https://nginx.org/keys/nginx_signing.key -O- | apt-key add -
-wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
+# Download and include apt keys for nginx and php
+sudo wget -q https://nginx.org/keys/nginx_signing.key -O- | apt-key add -
+sudo wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 
 # Download apt sources
-mkdir -p /etc/apt/sources.list.d
+sudo mkdir -p /etc/apt/sources.list.d
 cd /etc/apt/sources.list.d
-wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/web.list
+sudo wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/web.list
 
-# Install packages
-apt-get update && apt-get --yes install nginx php-fpm haproxy curl fail2ban
+# Update package sources
+sudo apt-get update
+
+# Install packages for monitoring, maintenance and clock sync
+sudo apt-get -y install curl rsync htop ntp nmap nload zip unzip git
+
+# Install packages for firewall, load balance and syncthing
+sudo apt-get -y install haproxy fail2ban syncthing
+
+# Install nginx and plugins
+sudo apt-get -y install nginx
+
+# Install php-fpm and plugins
+sudo apt-get -y install php-fpm php-common php-mbstring php-curl php-gd php-json php-xml php-zip php-imap php-yaml php-mongodb php-pgsql php-mysql
 
 # Create nginx config dirs
-mkdir -p /etc/nginx/conf.d
-mkdir -p /etc/nginx/sites-available
-mkdir -p /etc/nginx/sites-enabled
+sudo mkdir -p /etc/nginx/conf.d
+sudo mkdir -p /etc/nginx/sites-available
+sudo mkdir -p /etc/nginx/sites-enabled
 
 # Download nginx config
 cd /etc/nginx && rm nginx.conf
-wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/nginx.conf
+sudo wget -q https://raw.githubusercontent.com/99stack/installer/master/debian-latest/nginx-with-php-fpm/nginx.conf
 
-# Restart nginx webserver
-systemctl restart nginx
+# Restart services to apply config updates
+sudo systemctl restart nginx
+sudo systemctl restart php7.4-fpm
 
 # Cleanup 
-apt-get --yes autoremove
+sudo apt-get -y autoremove
