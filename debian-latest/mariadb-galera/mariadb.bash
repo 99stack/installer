@@ -10,7 +10,13 @@ sudo apt-get update && sudo apt-get -y install mariadb-server mariadb-client
 
 # Change bind adress to 0.0.0.0 for global access 
 # TODO: update config
-sed -i 's/bind-address/#bind-address/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+sudo sed -i 's/bind-address/#bind-address/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+
+# Additional changes in configuration
+sudo sed -i 's/utf8mb4/utf8/g' /etc/mysql/mariadb.conf.d/50-client.cnf
+sudo sed -i 's/utf8mb4/utf8/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+sudo sed -i 's/utf8mb4/utf8/g' /etc/mysql/mariadb.conf.d/50-mysql-clients.cnf
+sudo sed -i 's/#query_cache_limit/query_cache_limit/g' /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Stop mariadb service
 sudo systemctl stop mariadb
