@@ -11,3 +11,9 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 # Run dist-upgrade to resolve remaining dependencies
 sudo apt-get dist-upgrade
+
+# Clean up unused packages 
+sudo apt-get autoremove -y
+
+# Print debian version, should output 10.x on success
+cat /etc/debian_version
