@@ -1,9 +1,12 @@
 [mysqld]
 # Mariadb settings
-binlog_format=row
-default-storage-engine=innodb
+binlog_format=ROW
+default-storage-engine=InnoDB
+
+# InnoDB settings
 innodb_autoinc_lock_mode=2
-bind-address=0.0.0.0
+innodb_flush_log_at_trx_commit=0
+innodb_buffer_pool_size=128M
 
 # Galera settings
 wsrep_on=ON
