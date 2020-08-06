@@ -10,13 +10,15 @@ sudo apt-get update && sudo apt-get -y install mariadb-server mariadb-client
 
 # Change bind adress to 0.0.0.0 for global access 
 # TODO: update config
-sudo sed -i 's/bind-address/#bind-address/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/my.cnf
+
+# Update encoding to UTF-8
+cd /etc/mysql/
+sudo wget https://raw.githubusercontent.com/99stack/installer/master/debian-latest/mariadb-galera/mariadb.cnf
 
 # Additional changes in configuration
-sudo sed -i 's/utf8mb4/utf8/g' /etc/mysql/mariadb.conf.d/50-client.cnf
-sudo sed -i 's/utf8mb4/utf8/g' /etc/mysql/mariadb.conf.d/50-server.cnf
-sudo sed -i 's/utf8mb4/utf8/g' /etc/mysql/mariadb.conf.d/50-mysql-clients.cnf
-sudo sed -i 's/#query_cache_limit/query_cache_limit/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+sudo sed -i 's/query_cache_limit/#query_cache_limit/g' /etc/mysql/my.cnf
+sudo sed -i 's/query_cache_size/#query_cache_size/g' /etc/mysql/my.cnf
 
 # Stop mariadb service
 sudo systemctl stop mariadb
