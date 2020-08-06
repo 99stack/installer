@@ -20,6 +20,9 @@ sudo wget https://raw.githubusercontent.com/99stack/installer/master/debian-late
 sudo sed -i 's/query_cache_limit/#query_cache_limit/g' /etc/mysql/my.cnf
 sudo sed -i 's/query_cache_size/#query_cache_size/g' /etc/mysql/my.cnf
 
+# Run secure installation
+sudo mysql_secure_installation
+
 # Stop mariadb service
 sudo systemctl stop mariadb
 
