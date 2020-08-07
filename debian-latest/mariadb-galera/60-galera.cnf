@@ -14,4 +14,4 @@ bind-address=0.0.0.0
 
 # Cluster options and unique settings
 wsrep_provider_options="pc.weight=0"
-wsrep_node_address="54.245.49.59"
+wsrep_node_address="x.x.x.x"
