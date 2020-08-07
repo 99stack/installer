@@ -3,18 +3,15 @@
 wsrep_on=ON
 wsrep_provider=/usr/lib/galera/libgalera_smm.so
 wsrep_cluster_name="galera_cluster"
-wsrep_cluster_address=gcomm://
+wsrep_cluster_address="gcomm://"
 wsrep_sst_method=rsync
 binlog_format=row
 default_storage_engine=InnoDB
 innodb_autoinc_lock_mode=2
 
-# Allow server to accept connections on all interfaces.
+# Allow connections on all interfaces
 bind-address=0.0.0.0
 
-# Cluster options
+# Cluster options and unique settings
 wsrep_provider_options="pc.weight=0"
-
-# Optional settings
-#wsrep_slave_threads=1
-#innodb_flush_log_at_trx_commit=0
+wsrep_node_address="54.245.49.59"
