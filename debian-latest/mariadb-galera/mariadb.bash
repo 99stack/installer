@@ -11,9 +11,6 @@ sudo apt-get update && sudo apt-get install mariadb-server -y
 # Run secure installation
 sudo mysql_secure_installation
 
-# Stop mariadb service
-sudo systemctl stop mariadb
-
 # Download and install galera.cnf
 cd /etc/mysql/mariadb-conf.d
 sudo wget https://raw.githubusercontent.com/99stack/installer/master/debian-latest/mariadb-galera/60-galera.cnf
