@@ -12,7 +12,8 @@ sudo apt-get update && sudo apt-get install mariadb-server -y
 sudo mysql_secure_installation
 
 # Download and install galera.cnf
-cd /etc/mysql/mariadb-conf.d
+cd /etc/mysql/mariadb.conf.d
+sudo rm 60-galera.cnf
 sudo wget https://raw.githubusercontent.com/99stack/installer/master/debian-latest/mariadb-galera/60-galera.cnf
 
 # Finishing up, to start a new cluster, run:    sudo galera_new_cluster
