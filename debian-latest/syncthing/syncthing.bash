@@ -14,3 +14,10 @@ sudo apt-get install syncthing -y
 sudo mkdir /etc/syncthing
 sudo chmod 755 /etc/syncthing
 sudo chown nginx:nginx /etc/syncthing
+
+# Startup syncthing to create config files
+sudo -u nginx /usr/bin/syncthing -no-browser -home="/etc/syncthing"
+
+# Allow remote connections, Important: login to web UI and set a password
+sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/syncthing/config.xml
+sudo chown nginx:nginx /etc/syncthing
