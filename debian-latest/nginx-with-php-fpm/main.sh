@@ -3,10 +3,13 @@
 # Automated installation of latest nginx, php-fpm, haproxy and syncthing on latest version of debian or debian based distros
 
 # Allow installation from https sources
-sudo apt-get install apt-transport-https -y
+sudo apt-get install apt-transport-https curl gnupg2 ca-certificates lsb-release -y
+
+# Add mainline repos for nginx and php-fpm
+echo "deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
 
 # Download and include apt keys for nginx and php
-sudo wget -q https://nginx.org/keys/nginx_signing.key -O- | apt-key add -
+curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
 sudo wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 
 # Download apt sources
