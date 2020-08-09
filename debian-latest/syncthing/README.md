@@ -17,7 +17,7 @@ A user with sudo privileges is required. It's recomended to run as sudo user ins
 After installation, add the following line to crontab for root:
 
 ```bash
-@reboot sudo -u nginx /usr/bin/syncthing -no-browser -home="/etc/syncthing" > /dev/null 2>&1
+@reboot sudo -u www-data /usr/bin/syncthing -no-browser -home="/etc/syncthing" > /dev/null 2>&1
 ```
 
 In order to start syncthing once the server starts.
