@@ -16,4 +16,4 @@ alias l='ls $LS_OPTIONS -lA'
 #alias mv='mv -i'
 
 # Set default terminal title
-PROMPT_COMMAND='echo -en "\033]0;$(whoami)@$(hostname)\a"'
+PROMPT_COMMAND='echo -en "\033]0;$(whoami)@$hostname\a"'
